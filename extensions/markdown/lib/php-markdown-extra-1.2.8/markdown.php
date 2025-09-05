@@ -2095,7 +2095,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			#
 			# Check for: Indented code block.
 			#
-			else if ($tag{0} == "\n" || $tag{0} == " ") {
+			else if ($tag[0] == "\n" || $tag[0] == " ") {
 				# Indented code block: pass it unchanged, will be handled 
 				# later.
 				$parsed .= $tag;
