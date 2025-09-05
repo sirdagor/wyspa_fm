@@ -1607,7 +1607,7 @@ class Markdown_Parser {
 	# Handle $token provided by parseSpan by determining its nature and 
 	# returning the corresponding value that should replace it.
 	#
-		switch ($token{0}) {
+		switch ($token[0]) {
 			case "\\":
 				return $this->hashPart("&#". ord($token{1}). ";");
 			case "`":
