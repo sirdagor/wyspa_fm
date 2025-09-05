@@ -1206,7 +1206,8 @@ class Markdown_Parser {
 			# Get prepared regular expression for seraching emphasis tokens
 			# in current context.
 			#
-			$token_re = $this->em_strong_prepared_relist["$em$strong"];
+			$key = "$em$strong";
+			$token_re = $this->em_strong_prepared_relist[$key] ?? null;
 			
 			#
 			# Each loop iteration search for the next emphasis token. 
