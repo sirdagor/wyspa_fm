@@ -544,7 +544,7 @@
                 array(NULL, false, NULL)
             );
 
-            if(!is_null($data['relation_id'])){
+            if(!empty($data['relation_id'])){
                 if(!is_array($data['relation_id'])){
                     $entry_ids = array($data['relation_id']);
                 }
