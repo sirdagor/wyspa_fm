@@ -2142,7 +2142,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			#            HTML Comments, processing instructions.
 			#
 			else if (preg_match('{^<(?:'.$this->clean_tags_re.')\b}', $tag) ||
-				$tag{1} == '!' || $tag{1} == '?')
+				$tag[1] == '!' || $tag[1] == '?')
 			{
 				# Need to parse tag and following text using the HTML parser.
 				# (don't check for markdown attribute)
@@ -2161,8 +2161,8 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 				#
 				# Increase/decrease nested tag count.
 				#
-				if ($tag{1} == '/')						$depth--;
-				else if ($tag{strlen($tag)-2} != '/')	$depth++;
+				if ($tag[1] == '/')						$depth--;
+				else if ($tag[strlen($tag)-2] != '/')	$depth++;
 
 				if ($depth < 0) {
 					#
@@ -2278,7 +2278,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			#			 Comments and Processing Instructions.
 			#
 			if (preg_match('{^</?(?:'.$this->auto_close_tags_re.')\b}', $tag) ||
-				$tag{1} == '!' || $tag{1} == '?')
+				$tag[1] == '!' || $tag[1] == '?')
 			{
 				# Just add the tag to the block as if it was text.
 				$block_text .= $tag;
@@ -2289,8 +2289,8 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 				# the tag's name match base tag's.
 				#
 				if (preg_match('{^</?'.$base_tag_name_re.'\b}', $tag)) {
-					if ($tag{1} == '/')						$depth--;
-					else if ($tag{strlen($tag)-2} != '/')	$depth++;
+					if ($tag[1] == '/')						$depth--;
+					else if ($tag[strlen($tag)-2] != '/')	$depth++;
 				}
 				
 				#
