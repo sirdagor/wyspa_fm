@@ -2966,7 +2966,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			array(&$this, '_doFencedCodeBlocks_newlines'), $codeblock);
 
 		if ($classname != "") {
-			if ($classname{0} == '.')
+			if ($classname[0] == '.')
 				$classname = substr($classname, 1);
 			$attr_str = ' class="'.$this->code_class_prefix.$classname.'"';
 		} else {
