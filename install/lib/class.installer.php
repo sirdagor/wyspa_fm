@@ -11,40 +11,41 @@
          * and Database objects for installation/update. This allows us to use the
          * normal accessors.
          */
-        protected function __construct()
-        {
-            self::$Profiler = Profiler::instance();
-            self::$Profiler->sample('Engine Initialisation');
+     protected function __construct()
+{
+    self::$Profiler = Profiler::instance();
+    self::$Profiler->sample('Engine Initialisation');
 
-            if (get_magic_quotes_gpc()) {
-                General::cleanArray($_SERVER);
-                General::cleanArray($_COOKIE);
-                General::cleanArray($_GET);
-                General::cleanArray($_POST);
-            }
+    // PHP 8 does not have get_magic_quotes_gpc(), so we wrap it safely
+    if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
+        General::cleanArray($_SERVER);
+        General::cleanArray($_COOKIE);
+        General::cleanArray($_GET);
+        General::cleanArray($_POST);
+    }
 
-            // Include the default Config for installation.
-            include(INSTALL . '/includes/config_default.php');
-            static::initialiseConfiguration($settings);
+    // Include the default Config for installation.
+    include(INSTALL . '/includes/config_default.php');
+    static::initialiseConfiguration($settings);
 
-            // Initialize date/time
-            define_safe('__SYM_DATE_FORMAT__', self::Configuration()->get('date_format', 'region'));
-            define_safe('__SYM_TIME_FORMAT__', self::Configuration()->get('time_format', 'region'));
-            define_safe('__SYM_DATETIME_FORMAT__', __SYM_DATE_FORMAT__ . self::Configuration()->get('datetime_separator', 'region') . __SYM_TIME_FORMAT__);
-            DateTimeObj::setSettings(self::Configuration()->get('region'));
+    // Initialize date/time
+    define_safe('__SYM_DATE_FORMAT__', self::Configuration()->get('date_format', 'region'));
+    define_safe('__SYM_TIME_FORMAT__', self::Configuration()->get('time_format', 'region'));
+    define_safe('__SYM_DATETIME_FORMAT__', __SYM_DATE_FORMAT__ . self::Configuration()->get('datetime_separator', 'region') . __SYM_TIME_FORMAT__);
+    DateTimeObj::setSettings(self::Configuration()->get('region'));
 
-            // Initialize Language, Logs and Database
-            static::initialiseLang();
-            static::initialiseLog(INSTALL_LOGS . '/install');
-            static::initialiseDatabase();
+    // Initialize Language, Logs and Database
+    static::initialiseLang();
+    static::initialiseLog(INSTALL_LOGS . '/install');
+    static::initialiseDatabase();
 
-            // Initialize error handlers
-            GenericExceptionHandler::initialise(Symphony::Log());
-            GenericErrorHandler::initialise(Symphony::Log());
+    // Initialize error handlers
+    GenericExceptionHandler::initialise(Symphony::Log());
+    GenericErrorHandler::initialise(Symphony::Log());
 
-            // Copy POST
-            self::$POST = $_POST;
-        }
+    // Copy POST
+    self::$POST = $_POST;
+}
 
         /**
          * This function returns an instance of the Installer
