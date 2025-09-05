@@ -1200,6 +1200,12 @@ class Markdown_Parser {
 	 * This method is used by the php‑markdown‑extra library.
 	 * It has been rewritten to be fully compatible with PHP 8+.
 	 */
+	/**
+	 * Convert a Markdown span containing emphasis / strong into HTML.
+	 *
+	 * This method is used by the php‑markdown‑extra library.
+	 * It has been rewritten to be fully compatible with PHP 8+.
+	 */
 	protected function doItalicsAndBold(string $text): string
 	{
 		// Initialise stacks that hold text fragments and tokens.
@@ -1226,7 +1232,12 @@ class Markdown_Parser {
              *    when there is no match).  We guard against that so the
              *    rest of the algorithm never sees a “undefined offset”.
              */
-			$parts = preg_split($token_re, $text, 2, PREG_SPLIT_DELIM_CAPTURE);
+			if ($token_re) {
+				$parts = preg_split($token_re, $text, 2, PREG_SPLIT_DELIM_CAPTURE);
+			} else {
+				// No token to match → treat whole string as one part.
+				$parts = [$text];
+			}
 
 			// Append everything before the token to the current stack.
 			$text_stack[0] .= $parts[0] ?? '';
@@ -1328,8 +1339,6 @@ class Markdown_Parser {
 
 		return $text_stack[0];
 	}
-
-
 
 	function doBlockQuotes($text) {
 		$text = preg_replace_callback('/
