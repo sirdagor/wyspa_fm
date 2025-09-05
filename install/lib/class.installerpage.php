@@ -314,7 +314,22 @@
          * Database settings
          * -----------------------------------------------
          */
-
+            $fields['database'] = [
+                'db' => '',
+                'user' => '',
+                'password' => '',
+                'host' => '',
+                'port' => '',
+                'tbl_prefix' => ''
+            ];
+            $fields['user'] = [
+                'username' => '',
+                'firstname' => '',
+                'lastname' => '',
+                'password' => '',
+                'email' => '',
+                'confirm-password' => ''
+            ];
             $Database = new XMLElement('fieldset');
             $Database->appendChild(new XMLElement('legend', __('Database Connection')));
             $Database->appendChild(new XMLElement('p', __('Please provide Symphony with access to a database.')));

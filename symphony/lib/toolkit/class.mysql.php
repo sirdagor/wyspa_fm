@@ -335,7 +335,7 @@ class MySQL
      * @throws DatabaseException
      * @return boolean
      */
-    public function connect($host = null, $user = null, $password = null, $port = '3306', $database = null)
+    public function connect($host = null, $user = null, $password = null, $port = 3306, $database = null)
     {
         self::$_connection = array(
             'host' => $host,
