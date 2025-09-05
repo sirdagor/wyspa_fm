@@ -56,6 +56,7 @@ Class extension_maintenance_mode extends Extension
      */
     public function appendPreferences($context)
     {
+        $useragent = '';
         // Create preference group
         $group = new XMLElement('fieldset');
         $group->setAttribute('class', 'settings');
